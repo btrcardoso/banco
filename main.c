@@ -1,4 +1,6 @@
 #include "funcionario.c"
+#include "agencia.c"
+#include "conta_corrente.c"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
