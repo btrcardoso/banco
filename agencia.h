@@ -18,7 +18,7 @@ void salva_agencia(Agencia *ag, FILE *out);
 
 // Le uma agencia do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para agencia lido do arquivo
-Agencia * le_agencia(FILE *out);
+Agencia * le_agencia(FILE *in);
 
 // Retorna tamanho do funcionario em bytes
 int tamanho_agencia();
