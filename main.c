@@ -5,40 +5,59 @@
 #include <stdio.h>
 #include <string.h>
 
-void ler_comando(FILE *in);
+void ler_comando(void);
 
 void cadastrar_funcionario(FILE *f);
 void cadastrar_agencia(FILE *f);
 void cadastrar_conta_corrente(FILE *f);
 
+FILE * abrirArquivo(char * nome, FILE *f){
 
-void ler_comando(FILE *in){
+    if((f = fopen(nome, "a+b")) == NULL){
+        printf("Erro ao abrir o arquivo");
+        exit(1);
+    } else {
+        return f;
+    }
+
+}
+
+void ler_comando(void){
 
     int comando = -1;
+
+    // ponteiro para arquivo
+    FILE *f;
     
     do{
         printf("---- Escolha o comando que você deseja realizar: ----\n");
-        printf("1- ler funcionario\n2- ler agencia\n3- ler conta_corrente\n4- cadastrar funcionario\n5- cadastrar agencia\n6- cadastrar conta_corrente\n7- sair\n> ");
+        printf("1- ler funcionarios\n2- ler agencias\n3- ler conta_correntes\n4- cadastrar funcionario\n5- cadastrar agencia\n6- cadastrar conta_corrente\n7- sair\n> ");
         scanf("%d", &comando);
 
         switch(comando){
             case 1:
-                le_funcionarios(in);
+                f = abrirArquivo("funcionarios.dat", f);
+                le_funcionarios(f);
             break;
             case 2:
-                le_agencias(in);
+                f = abrirArquivo("agencias.dat", f);
+                le_agencias(f);
             break;
             case 3:
-                le_contas_correntes(in);
+                f = abrirArquivo("contas_correntes.dat", f);
+                le_contas_correntes(f);
             break;
             case 4:
-                cadastrar_funcionario(in);
+                f = abrirArquivo("funcionarios.dat", f);
+                cadastrar_funcionario(f);
             break;
             case 5:
-                cadastrar_agencia(in);
+                f = abrirArquivo("agencias.dat", f);
+                cadastrar_agencia(f);
             break;
             case 6:
-                cadastrar_conta_corrente(in);
+                f = abrirArquivo("contas_correntes.dat", f);
+                cadastrar_conta_corrente(f);
             break;
             case 7:
                 printf("\nEncerrando...\n");
@@ -47,6 +66,8 @@ void ler_comando(FILE *in){
             default:
                 printf("Digite um valor válido.\n");
         }
+
+        fclose(f);
 
         comando = -1;
 
@@ -96,6 +117,26 @@ void cadastrar_funcionario(FILE *f){
 }
 
 void cadastrar_agencia(FILE *f){
+
+    int cod = 0;
+    char nome[50];
+    char gerente[50];
+
+    printf("--- Cadastro de Agência ---\n");
+
+    printf("Nome: ");
+    scanf("%s", nome);
+
+    printf("Gerente: ");
+    scanf("%s", gerente);
+
+    Agencia *ag = agencia(cod, nome, gerente);
+
+    imprime_agencia(ag);
+
+    salva_agencia(ag, f);
+    printf("Agência cadastrada com sucesso!\n");
+    free(ag);
     
 }
 
@@ -106,16 +147,7 @@ void cadastrar_conta_corrente(FILE *f){
 
 int main (void){
 
-    // ponteiro para arquivo
-    FILE *out;
-
-    // cria ou abre o arquivo funcionarios.dat, sem apagar seu conteúdo, apontando para o fim do arquivo
-    if((out = fopen("funcionarios.dat", "a+b")) == NULL){
-        printf("Erro ao abrir o arquivo");
-        exit(1);
-    }
-
-    ler_comando(out);
+    ler_comando();
 
     /*
 

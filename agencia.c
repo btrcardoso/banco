@@ -4,6 +4,7 @@
 
 // Imprime o conteúdo de agência
 void imprime_agencia(Agencia *ag){
+    printf("Código: %d\n", ag->cod);
     printf("Nome: %s\n", ag->nome);
     printf("Gerente: %s\n", ag->gerente);
 }
@@ -87,11 +88,9 @@ void le_agencias(FILE *in){
 
     Agencia *ag;
 
-    if((ag = le_agencia(in)) != NULL){
+    while((ag = le_agencia(in)) != NULL){
         imprime_agencia(ag);
         free(ag);
     }
-
-    printf("-------------- \n");
 
 }
