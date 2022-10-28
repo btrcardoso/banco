@@ -6,7 +6,7 @@
 void imprime_agencia(Agencia *ag){
     printf("Código: %d\n", ag->cod);
     printf("Nome: %s\n", ag->nome);
-    printf("Gerente: %s\n", ag->gerente);
+    printf("Gerente: %s\n\n", ag->gerente);
 }
 
 // Cria a agencia
@@ -81,7 +81,7 @@ int tamanho_agencia(){
 // Lê todas as agencias do arquivo in
 void le_agencias(FILE *in){
 
-    printf("------- Agências: -------\n\n");
+    printf("------- Agências: -------\n");
 
     // Traz o ponteiro para o inicio do arquivo
     rewind(in);

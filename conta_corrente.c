@@ -5,8 +5,8 @@
 // Imprime o conteúdo de conta corrente
 void imprime_conta_corrente(ContaCorrente *cc){
     printf("Código: %d\n", cc->cod);
-    printf("Código Agência: %s", cc->cod_agencia);
-    printf("Saldo: %.2lf\n", cc->saldo);
+    printf("Código Agência: %d\n", cc->cod_agencia);
+    printf("Saldo: %.2lf\n\n", cc->saldo);
 }
 
 // Cria a conta_corrente
@@ -43,7 +43,7 @@ void salva_conta_corrente(ContaCorrente *cc, FILE *out){
     fwrite(&cc->cod, sizeof(int), 1, out);
     fwrite(&cc->cod_agencia, sizeof(int), 1, out);
     fwrite(&cc->saldo, sizeof(double), 1, out);
-    
+
 }
 
 // Le uma ContaCorrente do arquivo in na posicao atual do cursor
@@ -63,7 +63,7 @@ ContaCorrente * le_conta_corrente(FILE *in){
     );
     */
 
-    if ( fread(&cc->cod, sizeof(int), 1, in) >= 0){
+    if (fread(&cc->cod, sizeof(int), 1, in) <= 0){
         free(cc);
         return NULL;
     }
@@ -85,7 +85,7 @@ int tamanho_conta_corrente(){
 // Lê todos as contas correntes do arquivo in
 void le_contas_correntes(FILE *in){
 
-    printf("------- Contas correntes: -------\n\n");
+    printf("------- Contas correntes: -------\n");
     
     // coloca o ponteiro no inicio do arquivo
     rewind(in);
@@ -96,5 +96,6 @@ void le_contas_correntes(FILE *in){
         imprime_conta_corrente(cc);
         free(cc);
     }
+
 
 }

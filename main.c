@@ -33,6 +33,7 @@ void ler_comando(void){
         printf("---- Escolha o comando que você deseja realizar: ----\n");
         printf("1- ler funcionarios\n2- ler agencias\n3- ler conta_correntes\n4- cadastrar funcionario\n5- cadastrar agencia\n6- cadastrar conta_corrente\n7- sair\n> ");
         scanf("%d", &comando);
+        printf("\n");
 
         switch(comando){
             case 1:
@@ -60,11 +61,11 @@ void ler_comando(void){
                 cadastrar_conta_corrente(f);
             break;
             case 7:
-                printf("\nEncerrando...\n");
+                printf("Encerrando...\n\n");
                 exit(1);
             break;
             default:
-                printf("Digite um valor válido.\n");
+                printf("Digite um valor válido.\n\n");
         }
 
         fclose(f);
@@ -112,10 +113,11 @@ void cadastrar_funcionario(FILE *f){
 
     Funcionario *func = funcionario(cod, nome, cpf, data_nascimento, salario);
     salva_funcionario(func, f);
-    printf("Funcionário cadastrado com sucesso!\n");
+    printf("Funcionário cadastrado com sucesso!\n\n");
     free(func);
 }
 
+// criação de nova Agência a partir de dados do teclado
 void cadastrar_agencia(FILE *f){
 
     int cod = 0;
@@ -131,34 +133,38 @@ void cadastrar_agencia(FILE *f){
     scanf("%s", gerente);
 
     Agencia *ag = agencia(cod, nome, gerente);
-
-    imprime_agencia(ag);
-
     salva_agencia(ag, f);
-    printf("Agência cadastrada com sucesso!\n");
+    printf("Agência cadastrada com sucesso!\n\n");
     free(ag);
     
 }
 
 void cadastrar_conta_corrente(FILE *f){
-    
-}
 
+    int cod, cod_agencia;
+    double saldo;
+
+    printf("--- Cadastro de Conta Corrente ---\n");
+
+    printf("Código: ");
+    scanf("%d",&cod);
+
+    printf("Código da Agência: ");
+    scanf("%d",&cod_agencia);
+
+    printf("Saldo: ");
+    scanf("%lf",&saldo);
+
+    ContaCorrente * cc = conta_corrente(cod, cod_agencia, saldo);
+    salva_conta_corrente(cc, f);
+    printf("Conta corrente cadastrada com sucesso!\n\n");
+    free(cc);
+
+}
 
 int main (void){
 
     ler_comando();
-
-    /*
-
-    cadastrar_funcionario(out);
-    
-    le_funcionarios(out);
-    
-    // fecha o arquivo
-    fclose(out);
-    
-    */
 
     return 0;
 }

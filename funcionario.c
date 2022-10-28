@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 void imprime_funcionario(Funcionario *func){
-    // printf("------- Dados do funcionário -------\n");
     printf("Código: %d\n", func->cod);
     printf("Nome: %s\n", func->nome);
     printf("CPF: %s\n", func->cpf);
@@ -91,7 +90,7 @@ int tamanho_funcionario(){
 
 void le_funcionarios(FILE *in){
 
-    printf("------- Funcionários: -------\n\n");
+    printf("------- Funcionários: -------\n");
 
     // Traz o ponteiro para o início do arquivo 
     rewind(in);
@@ -102,7 +101,5 @@ void le_funcionarios(FILE *in){
         imprime_funcionario(f);
         free(f);
     }
-
-    printf("-------------- \n");
 
 }
